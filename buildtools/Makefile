@@ -1,10 +1,14 @@
 all: download unpack patch build
 
 download: FORCE
-	wget https://github.com/foss-for-synopsys-dwc-arc-processors/toolchain/releases/download/arc-2016.03/arc_gnu_2016.03_sources.tar.gz
+	if [ ! -f "arc_gnu_2016.03_sources.tar.gz" ]; then \
+		wget https://github.com/foss-for-synopsys-dwc-arc-processors/toolchain/releases/download/arc-2016.03/arc_gnu_2016.03_sources.tar.gz; \
+	fi
 
 unpack: FORCE
-	tar xfvz arc_gnu_2016.03_sources.tar.gz
+	if [ ! -d "arc_gnu_2016.03_sources/" ]; then \
+		tar xfvz arc_gnu_2016.03_sources.tar.gz; \
+	fi
 
 patch: FORCE
 	patch arc_gnu_2016.03_sources/gcc/gcc/config/arc/arc.c < arc_gcc.patch
