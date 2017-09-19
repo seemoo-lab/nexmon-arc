@@ -1,8 +1,8 @@
 # Nexmon Framework for the ARC architecture
-TODO
+Tested with Ubuntu 16.04.03
 
 ## Getting Started
-TODO
+* Installing dependencies (mostly for the ARC toolchain): `sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison`
 
 ## WARNING
 TODO
