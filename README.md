@@ -2,7 +2,7 @@
 Tested with Ubuntu 16.04.03
 
 ## Getting Started
-* Installing dependencies (mostly for the ARC toolchain): `sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison`
+* Installing dependencies (mostly for the ARC toolchain): `sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison gawk libgmp3-dev`
 
 ## WARNING
 TODO
