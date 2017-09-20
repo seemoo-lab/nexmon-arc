@@ -15,6 +15,7 @@ sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev
 source setup_env.sh
 ```
 * Go to the hello world example in the patches directory and execte `make`. This will build a patched firmware which prints a string at the initialization time of the fw and uc code. 
+
 ```bash
 cd patches/wil6210/4-1-0_55/hello_world
 make
