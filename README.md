@@ -4,6 +4,7 @@ Tested with Ubuntu 16.04.03
 ## Getting Started
 * Installing dependencies (mostly for the ARC toolchain): `sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison gawk libgmp3-dev`
 * Run `make` in the root directory, this will download and compile the ARC toolchain. **This needs to be done only once!**
+* Download the original FW file from [here](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/wil6210.fw) and place it in this directory: `firmwares/wil6210/4-1-0_55/`
 * Setup the build environment for Nexmon: `source setup_env.sh`
 * Go to the patches directory: `cd patches/wil6210/4-1-0_55/hello_world` and execte `make`. This will build a patched firmware which prints a string at the initialization time of the fw and uc code. 
 * Copy the resulting `wil6210.fw` to your router (the default place in the filesystem is `/lib/firmware/wil6210.fw`)
