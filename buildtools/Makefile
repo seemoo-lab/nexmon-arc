@@ -1,4 +1,4 @@
-all: download unpack patch build
+all: download unpack patch build gcc-nexmon-plugin
 
 download: FORCE
 	if [ ! -f "arc_gnu_2016.03_sources.tar.gz" ]; then \
@@ -15,5 +15,8 @@ patch: FORCE
 
 build: FORCE
 	cd arc_gnu_2016.03_sources/toolchain/ && ./build-all.sh --cpu arc600 --install-dir ../../arc_gnu_bin --no-uclibc --no-multilib --no-pdf
+
+gcc-nexmon-plugin: FORCE
+	$(Q)make -C $@
 
 FORCE: 
