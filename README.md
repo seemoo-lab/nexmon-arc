@@ -1,17 +1,33 @@
-# Nexmon Framework for the ARC architecture
-Tested with Ubuntu 16.04.03
+# Nexmon for ARC
+The nexmon framework adapted for the ARC architecture, tested with Ubuntu 16.04.03
 
 ## Getting Started
-* Installing dependencies (mostly for the ARC toolchain): `sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison gawk libgmp3-dev`
+* Installing dependencies (mostly for the ARC toolchain):
+
+```bash
+sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison gawk libgmp3-dev
+```
 * Run `make` in the root directory, this will download and compile the ARC toolchain. **This needs to be done only once!**
 * Download the original FW file from [here](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/wil6210.fw) and place it in this directory: `firmwares/wil6210/4-1-0_55/`
-* Setup the build environment for Nexmon: `source setup_env.sh`
-* Go to the patches directory: `cd patches/wil6210/4-1-0_55/hello_world` and execte `make`. This will build a patched firmware which prints a string at the initialization time of the fw and uc code. 
+* Setup the build environment for Nexmon:
+
+```bash
+source setup_env.sh
+```
+* Go to the hello world example in the patches directory and execte `make`. This will build a patched firmware which prints a string at the initialization time of the fw and uc code. 
+```bash
+cd patches/wil6210/4-1-0_55/hello_world
+make
+```
 * Copy the resulting `wil6210.fw` to your router (the default place in the filesystem is `/lib/firmware/wil6210.fw`)
-* Restart the interface: `ifconfig wlan2 down && ifconfig wlan2 up`
+* Restart the interface:
+
+```bash
+ifconfig wlan2 down && ifconfig wlan2 up
+```
 * You should be able to get the following reults by dumping the `console_dump_fw` and `console_dump_uc` in the debugfs:
 
-```
+```bash
 root@TALON1:~# cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_fw 
 FW: INITIALIZED
 root@TALON1:~# cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_uc 
@@ -24,7 +40,8 @@ This software might damage your hardware and may void your hardware’s warranty
 You acknowledge that you are solely responsible for how you use the software, & for complying with all relevant laws in your area. 
 You also acknowledge that neither of the developers of nexmon-arc nor any of its affiliates & associates may be held liable, 
 responsible or accountable for any type of damage, litigation or other legal action, which may arise either from your legal or 
-illegal use of nexmon-arc, or any other software.
+illegal use of nexmon-arc, or any other software. We do not tolerate the use of our software for any illegal purpose. 
+By using our software in any way, you acknowledge & approve to use it exclusively in a lawful manner.
 
 
 ## Related projects
