@@ -18,8 +18,14 @@ root@TALON1:~# cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_uc
 UC: INITIALIZED
 ```
 
-## WARNING
-TODO
+## DISCLAIMER
+This software might damage your hardware and may void your hardware’s warranty. You use our tools at your risk and responsibility.
+
+You acknowledge that you are solely responsible for how you use the software, & for complying with all relevant laws in your area. 
+You also acknowledge that neither of the developers of nexmon-arc nor any of its affiliates & associates may be held liable, 
+responsible or accountable for any type of damage, litigation or other legal action, which may arise either from your legal or 
+illegal use of nexmon-arc, or any other software.
+
 
 ## Related projects
 * [LEDE](https://lede-project.org): The “Linux Embedded Development Environment” is a Linux operating system based on OpenWrt.
