@@ -3,6 +3,19 @@ Tested with Ubuntu 16.04.03
 
 ## Getting Started
 * Installing dependencies (mostly for the ARC toolchain): `sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison gawk libgmp3-dev`
+* Run `make` in the root directory, this will download and compile the ARC toolchain. **This needs to be done only once!**
+* Setup the build environment for Nexmon: `source setup_env.sh`
+* Go to the patches directory: `cd patches/wil6210/4-1-0_55/hello_world` and execte `make`. This will build a patched firmware which prints a string at the initialization time of the fw and uc code. 
+* Copy the resulting `wil6210.fw` to your router (the default place in the filesystem is `/lib/firmware/wil6210.fw`)
+* Restart the interface: `ifconfig wlan2 down && ifconfig wlan2 up`
+* You should be able to get the following reults by dumping the `console_dump_fw` and `console_dump_uc` in the debugfs:
+
+```
+root@TALON1:~# cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_fw 
+FW: INITIALIZED
+root@TALON1:~# cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_uc 
+UC: INITIALIZED
+```
 
 ## WARNING
 TODO
@@ -35,8 +48,6 @@ Any use of the Software which results in an academic publication or other public
 
 ## Give us Feedback
 We want to learn how people use our platform and what aspects we might improve. Please report any issues or comments using the bug-tracker and do not hesitate to approach us via e-mail.
-
-![NexMon logo](https://github.com/seemoo-lab/nexmon/raw/master/gfx/nexmon.png)
 
 ## Statistics
 
