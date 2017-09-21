@@ -157,19 +157,6 @@ gdb: $(basename $(FW_CODE_FILE)).elf
 	@printf "\033[0;31m  STARTING GDB\033[0m with %s\n" $<
 	$(Q)$(CC)gdb -ex "target remote 127.0.0.1:1234" -ex "load" $<
 
-install-firmware-router-3: $(FW_FILE)
-	scp $< root@192.168.1.103:/lib/firmware
-	ssh root@192.168.1.103 "ifconfig wlan2 down && sleep 1 && ifconfig wlan2 up"
-
-test-wmi-0x864-router-3:
-	ssh root@192.168.1.103 "python3 ./wt.py sendwmi 0x864"
-	ssh root@192.168.1.103 "cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_fw"
-	ssh root@192.168.1.103 "cat /sys/kernel/debug/ieee80211/phy2/wil6210/console_dump_uc"
-	
-enable-debugging-router-3:
-	ssh root@192.168.1.103 "echo -n 'module wil6210 +p' > /sys/kernel/debug/dynamic_debug/control"
-
-
 ###################################################################
 
 check-nexmon-setup-env:
