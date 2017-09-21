@@ -4,7 +4,7 @@ The nexmon C-based firmware patching framework adapted for the ARC architecture,
 ## Getting Started
 The following explained how to use nexmon-arc and compile our hello world application for the wil6210 firmware v4.1.0.55, which prints a debug output that is readable from the device driver. The following instructions have been tested with Ubuntu 16.04.03.
 
-### Setting up the environment
+### Setting up the environment (needs to be done only once)
 * Installing dependencies (mostly for the ARC toolchain):
 
   ```bash
