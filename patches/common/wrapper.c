@@ -62,6 +62,11 @@ void
 sub_1604(void)
 VOID_DUMMY
 
+AT(CHIP_VER_WIL6210, FW_VER_410_55, UC_ADDR(0xA170))
+void
+sub_A170()
+VOID_DUMMY
+
 #undef VOID_DUMMY
 #undef RETURN_DUMMY
 #undef AT
