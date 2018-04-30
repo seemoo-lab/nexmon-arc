@@ -32,39 +32,15 @@
  *                                                                         *
  **************************************************************************/
 
-#ifndef FIRMWARE_VERSION_H
-#define FIRMWARE_VERSION_H
+#ifndef STRUCTS_H
+#define STRUCTS_H
 
-#define CHIP_VER_ALL                        0
-#define CHIP_VER_BCM4339                    1
-#define CHIP_VER_BCM4330                    2
-#define CHIP_VER_BCM4358                    3
-#define CHIP_VER_BCM43438                   4
-#define CHIP_VER_FITBIT                     5
-#define CHIP_VER_WIL6210                    6
+#ifndef	PAD
+#define	_PADLINE(line)	pad ## line
+#define	_XSTR(line)	_PADLINE(line)
+#define	PAD		_XSTR(__LINE__)
+#endif
 
-#define FW_VER_ALL                          0
+#include "../structs.common.h"
 
-// for CHIP_VER_BCM4339
-#define FW_VER_6_37_32_RC23_34_40_r581243   10
-#define FW_VER_6_37_32_RC23_34_43_r639704   11
-
-// for CHIP_VER_BCM4330
-#define FW_VER_5_90_195_114                 20
-#define FW_VER_5_90_100_41                  21
-
-// for CHIP_VER_BCM4358
-#define FW_VER_7_112_200_17                 30
-
-// for CHIP_VER_BCM43438
-#define FW_VER_7_45_41_26_r640327           40
-
-#define FW_VER_FITBIT                       50
-
-#define FW_VER_7759                         60
-#define FW_VER_7780                         61
-#define FW_VER_410_55                       62
-#define FW_VER_520_18                       63
-
-
-#endif /*FIRMWARE_VERSION_H*/
+#endif /*STRUCTS_H */
