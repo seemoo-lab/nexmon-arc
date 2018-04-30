@@ -29,6 +29,10 @@ __attribute__((at(0x8ffff0, "", CHIP_VER_WIL6210, FW_VER_7780)))
 __attribute__((at(0x9386f4, "", CHIP_VER_WIL6210, FW_VER_410_55)))
 // fw console
 __attribute__((at(0x8ffff0, "", CHIP_VER_WIL6210, FW_VER_410_55)))
+// uc console
+__attribute__((at(0x93cff0, "", CHIP_VER_WIL6210, FW_VER_520_18)))
+// fw console
+__attribute__((at(0x8ffff0, "", CHIP_VER_WIL6210, FW_VER_520_18)))
 static hndrte_log_t active_log = {
     .buf = console_buf,
     .buf_size = LOG_BUF_LEN,
