@@ -93,7 +93,7 @@ rx_sweep_frame() {
 
 	if (*frame_control_field == 0x0864) {
 		// Received Sector Sweep Frame
-		if (1) {
+		if (snr_buffer_val == 1) {
 			// Add current sweep to dump
 			cur_dump = &sweep_dump.dump[(*cur_pos)];
 			
@@ -104,12 +104,8 @@ rx_sweep_frame() {
 			}
 			lst_cdown = cur_cdown;
 
-			// Use SNR value if valid
-			if(snr_buffer_val ==1) {
-            			cur_dump->snr = snr_buffer;
-			} else {
-				cur_dump->snr = 0x8000;
-			}
+			// Use SNR value
+            		cur_dump->snr = snr_buffer;
 
 			// Copy the SRC MAC addr
 			cur_dump->src[0] = frame_src_addr[0];
@@ -134,18 +130,19 @@ rx_sweep_frame() {
 	else if (*frame_control_field == 0x0a64 || *frame_control_field == 0x0964) {
 		// Received Acknowledgement or Feedback
 		printf("SWP Feedback (type %04x) from %02x:%02x:%02x:%02x:%02x:%02x sec: %d, snr: %02d dB\n",
-                	*frame_control_field, frame_src_addr[0], frame_src_addr[1],
-                	frame_src_addr[2], frame_src_addr[3], frame_src_addr[4],
-                	frame_src_addr[5], frame_ssw_field[0] & 0x3F, 
+        	*frame_control_field, frame_src_addr[0], frame_src_addr[1],
+            frame_src_addr[2], frame_src_addr[3], frame_src_addr[4],
+            frame_src_addr[5], frame_ssw_field[0] & 0x3F, 
 			frame_ssw_field[1]/4+19);
 	}
 	else if (*frame_control_field == 0x0464 || *frame_control_field == 0x0764) {
-                // Received Grant
-                printf("SWP Grant (type %04x) from %02x:%02x:%02x:%02x:%02x:%02x\n",
-                        *frame_control_field, frame_src_addr[0], frame_src_addr[1],
-                        frame_src_addr[2], frame_src_addr[3], frame_src_addr[4],
-                        frame_src_addr[5]);
-        }
+        // Received Grant
+        printf("SWP Grant (type %04x) from %02x:%02x:%02x:%02x:%02x:%02x\n",
+            *frame_control_field, frame_src_addr[0], frame_src_addr[1],
+            frame_src_addr[2], frame_src_addr[3], frame_src_addr[4],
+            frame_src_addr[5]);
+    }
+	snr_buffer_val = 0;
 }
 __attribute__((at(UC_ADDR(0xF486), "", CHIP_VER_WIL6210, FW_VER_520_18)))
 BLPatch(rx_sweep_frame, rx_sweep_frame);
