@@ -60,39 +60,42 @@ void dump_sweep_info() {
             sweep_dump.ctr_swps ++;
         }
 
-	cur_dump = &sweep_dump.dump[(*cur_pos)];	
-	cur_dump->sector_id = cur_frame_ssw_field[1] >> 2;
+	    cur_dump = &sweep_dump.dump[(*cur_pos)];	
+	    cur_dump->sector_id = cur_frame_ssw_field[1] >> 2;
 
-	if (sector_info_buffer.valid) {
+	    if (sector_info_buffer.valid) {
 
-	    // Add current information to dump
-	    cur_dump->rssi = sector_info_buffer.rssi;
-	    cur_dump->snr = sector_info_buffer.snr;
-	} else {
-	    // Measurement was incomplete
-	    cur_dump->rssi = 0;
+	       // Add current information to dump
+	       cur_dump->rssi = sector_info_buffer.rssi;
+	       cur_dump->snr = sector_info_buffer.snr;
+	    } else {
+	       // Measurement was incomplete
+	       cur_dump->rssi = 0;
             cur_dump->snr = 0;
-	}	
+	    }
 
-	// Copy the SRC MAC addr
-	cur_dump->macaddr[0] = cur_src_addr[0];
-	cur_dump->macaddr[1] = cur_src_addr[1];
-	cur_dump->macaddr[2] = cur_src_addr[2];
-	cur_dump->macaddr[3] = cur_src_addr[3];
-	cur_dump->macaddr[4] = cur_src_addr[4];
-	cur_dump->macaddr[5] = cur_src_addr[5];
-	
-	cur_dump->flags[0] = 0;
-	cur_dump->flags[1] = 0;
-	last_id = cur_sector_info[0];
-
-	// Increase the counter
-	sweep_dump.ctr_pkts ++;
-	(*cur_pos) = ((*cur_pos) + 1) % SWEEP_DUMP_SIZE;
+	    // Copy the SRC MAC addr
+	    cur_dump->macaddr[0] = cur_src_addr[0];
+	    cur_dump->macaddr[1] = cur_src_addr[1];
+	    cur_dump->macaddr[2] = cur_src_addr[2];
+	    cur_dump->macaddr[3] = cur_src_addr[3];
+	    cur_dump->macaddr[4] = cur_src_addr[4];
+	    cur_dump->macaddr[5] = cur_src_addr[5];
+	    
+	    cur_dump->flags[0] = 0;
+	    cur_dump->flags[1] = 0;
+	    last_id = cur_sector_info[0];
+        
+	    // Increase the counter
+	    sweep_dump.ctr_pkts ++;
+	    (*cur_pos) = ((*cur_pos) + 1) % SWEEP_DUMP_SIZE;
+    }
 
     // Mark the buffer invalid
     sector_info_buffer.valid = 0;
 }
+__attribute__((at(UC_ADDR(0xD32E), "", CHIP_VER_WIL6210, FW_VER_410_55)))
+BLPatch(dump_sweep_info, dump_sweep_info);
 
 //Hook the processing sweep frame function
 __attribute__((naked))
@@ -109,7 +112,3 @@ naked_store_sweep_frame_hook(void){
 }
 __attribute__((at(UC_ADDR(0xD374), "", CHIP_VER_WIL6210, FW_VER_410_55)))
 BLNEPatch(naked_store_sweep_frame_hook, naked_store_sweep_frame_hook);
-
-__attribute__((at(UC_ADDR(0xD32E), "", CHIP_VER_WIL6210, FW_VER_410_55)))
-BLPatch(dump_sweep_info, dump_sweep_info);
-
