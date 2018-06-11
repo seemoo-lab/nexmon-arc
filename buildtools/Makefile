@@ -12,6 +12,7 @@ unpack: FORCE
 
 patch: FORCE
 	patch arc_gnu_2016.03_sources/gcc/gcc/config/arc/arc.c < arc_gcc.patch
+	patch arc_gnu_2016.03_sources/toolchain/arc-external.sh < arc_mpc.patch
 
 build: FORCE
 	cd arc_gnu_2016.03_sources/toolchain/ && ./build-all.sh --cpu arc600 --install-dir ../../arc_gnu_bin --no-uclibc --no-multilib --no-pdf
