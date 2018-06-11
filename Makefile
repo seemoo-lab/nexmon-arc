@@ -1,4 +1,4 @@
-all: buildtools 
+all: fetch buildtools 
 
 get_firmware:
 	mkdir linux-firmware
