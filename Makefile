@@ -8,6 +8,7 @@ fetch:
 		git fetch; \
 		git checkout 936b035d5ec7225c20d86784edeb8b3146194405 wil6210.fw
 	cp linux-firmware/wil6210.* firmwares/wil6210/4-1-0_55/
+	rm -rf linux-firmware
 
 buildtools: FORCE
 	@printf "\033[0;31m  BUILDING BUILDTOOLS\033[0m\n"
