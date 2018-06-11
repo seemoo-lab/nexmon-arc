@@ -11,8 +11,7 @@ The following explained how to use nexmon-arc and compile our hello world applic
   sudo apt-get install texinfo byacc flex libncurses5-dev zlib1g-dev libexpat1-dev texlive build-essential git wget bison gawk libgmp3-dev
   ```
 
-* Run `make` in the root directory, this will download and compile the ARC toolchain.
-* Download the original FW file (version 4.1.0.55) from the [linux-firmware repository](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/wil6210.fw) and place it in this directory: `firmwares/wil6210/4-1-0_55/`
+* Run `make` in the root directory, this will download the original firmware and compile the ARC toolchain.
 
 ### Patch the firmware
 * Setup the build environment for Nexmon:
@@ -43,6 +42,28 @@ The following explained how to use nexmon-arc and compile our hello world applic
   ```
 
   The `console_fw` and `console_uc` debugfs interfaces are custom extensions of the wil6210 driver that allow to read the output buffer from the firmware. This function is integrated in our [lede-ad7200](https://github.com/seemoo-lab/lede-ad7200) image for TP-Link Talon AD7200 devices and provided by [this](https://github.com/seemoo-lab/lede-ad7200/blob/release/overlay/seemoo/mac80211/patches/0002-adding-support-to-read-console-output.patch) patch. 
+
+### Access the SNR and RSSI of sector sweep frames
+
+* Go to the sweep_info example in the patches directory and execute `make`. This will build a patched firmware which keeps information on received sweep frames in a buffer in the uc code.
+
+  ```bash
+  cd patches/wil6210/4-1-0_55/sweep_info
+  make
+  ```
+* Copy the resulting `wil6210.fw` to your device (the default place in the filesystem is `/lib/firmware/wil6210.fw`)
+* Restart the interface (executed on the device):
+
+  ```bash
+  ifconfig wlan2 down && ifconfig wlan2 up
+  ```
+* You should be able to see a table of results by reading the `sweep_dump` files in the debugfs:
+
+  ```bash
+  root@TALON1:~# cat /sys/kernel/debug/ieee80211/phy2/wil6210/sweep_dump
+  ```
+
+  The `sweep_dump` debugfs interface is a custom extension for the wil6210 driver that allow to read the signal strength of received sector sweep frames from the firmware. This function is integrated in our [lede-ad7200](https://github.com/seemoo-lab/lede-ad7200) image for TP-Link Talon AD7200 devices. 
 
 ### Write your own patch
   To write your own patches, check the example files in *patches/wil6210/4-1-0_55/hello_world/src* and consider the original [Nexmon](https://nexmon.org) project for further documentation on the patching process.
@@ -80,7 +101,7 @@ This software has been released as part of [Talon Tools: The Framework for Pract
 ## Give us Feedback
 We want to learn how people use our platform and what aspects we might improve. Please report any issues or comments using the bug-tracker and do not hesitate to approach us via e-mail.
 
-## Contact
+## Authors
 * [Daniel Steinmetzer](https://seemoo.tu-darmstadt.de/dsteinmetzer) <<dsteinmetzer@seemoo.tu-darmstadt.de>>
 * Daniel Wegemer <<dwegemer@seemoo.tu-darmstadt.de>>
 * [Matthias Schulz](https://seemoo.tu-darmstadt.de/mschulz) <<mschulz@seemoo.tu-darmstadt.de>>
