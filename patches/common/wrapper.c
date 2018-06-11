@@ -67,6 +67,11 @@ void
 sub_A170()
 VOID_DUMMY
 
+AT(CHIP_VER_WIL6210, FW_VER_410_55, FW_ADDR(0x2B8))
+void
+store_r13_to_r17(void)
+VOID_DUMMY
+
 #undef VOID_DUMMY
 #undef RETURN_DUMMY
 #undef AT
