@@ -1,5 +1,5 @@
 # Nexmon for ARC
-The nexmon C-based firmware patching framework adapted for the ARC architecture, that enables you to write your own firmware patches for ARC based WiFi chips such as the QCA9500.
+This is the nexmon C-based firmware patching framework adapted for the ARC architecture, that enables you to write your own firmware patches for ARC based WiFi chips such as the QCA9500.
 
 ## Getting Started
 The following explained how to use nexmon-arc and compile our hello world application for the wil6210 firmware v4.1.0.55, which prints a debug output that is readable from the device driver. The following instructions have been tested with Ubuntu 16.04.03.
@@ -43,8 +43,11 @@ The following explained how to use nexmon-arc and compile our hello world applic
 
   The `console_fw` and `console_uc` debugfs interfaces are custom extensions of the wil6210 driver that allow to read the output buffer from the firmware. This function is integrated in our [lede-ad7200](https://github.com/seemoo-lab/lede-ad7200) image for TP-Link Talon AD7200 devices and provided by [this](https://github.com/seemoo-lab/lede-ad7200/blob/release/overlay/seemoo/mac80211/patches/0002-adding-support-to-read-console-output.patch) patch. 
 
-### Access the SNR and RSSI of sector sweep frames
+## Access the received signal strength of sector sweep frames
 
+The following explained how to use nexmon-arc to gain access to the signal strength of received sector sweep frames in wil6210 firmware v4.1.0.55, and v5.2.0.18 and make it readable from our extended wil6210 device driver. The following instructions have been tested with Ubuntu 16.04.03.
+
+* Choose the firmware you aim to work with either v4.1.0.55 or v5.2.0.18 are supported. 
 * Go to the sweep_info example in the patches directory and execute `make`. This will build a patched firmware which keeps information on received sweep frames in a buffer in the uc code.
 
   ```bash
@@ -64,6 +67,7 @@ The following explained how to use nexmon-arc and compile our hello world applic
   ```
 
   The `sweep_dump` debugfs interface is a custom extension for the wil6210 driver that allow to read the signal strength of received sector sweep frames from the firmware. This function is integrated in our [lede-ad7200](https://github.com/seemoo-lab/lede-ad7200) image for TP-Link Talon AD7200 devices. 
+  Please check the version of the wil6210 firmware that is running in your LEDE system. Running a new firmware with an old driver might cause errors. You should keep the same version or update both the extended device driver and the patched firmware to the most recent release.
 
 ### Write your own patch
   To write your own patches, check the example files in *patches/wil6210/4-1-0_55/hello_world/src* and consider the original [Nexmon](https://nexmon.org) project for further documentation on the patching process.
