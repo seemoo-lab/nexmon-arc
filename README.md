@@ -1,4 +1,5 @@
 # Nexmon for ARC
+<img src="logos/talon_tools_logo.png" align="right" width=20% height=20%/>
 This is the nexmon C-based firmware patching framework adapted for the ARC architecture, that enables you to write your own firmware patches for ARC based WiFi chips such as the QCA9500.
 
 ## Getting Started
